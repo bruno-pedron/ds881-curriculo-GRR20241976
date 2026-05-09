@@ -13,13 +13,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verificação de sintaxe e padrões
+      - name: Verificação do index.html
         run: |
-          if [ -f "README.md" ]; then
-            echo "✓ README.md encontrado"
-            grep -q "." README.md && echo "✓ Conteúdo válido" || exit 1
+          if [ -f "index.html" ]; then
+            echo "✓ index.html encontrado"
           else
-            echo "✗ README.md não encontrado"
+            echo "✗ index.html não encontrado"
+            exit 1
+          fi
+
+          if grep -q "<!DOCTYPE html>" index.html && \
+             grep -q "<html" index.html && \
+             grep -q "<title>" index.html; then
+            echo "✓ Estrutura básica do HTML validada"
+          else
+            echo "✗ index.html não possui a estrutura mínima esperada"
             exit 1
           fi
 
