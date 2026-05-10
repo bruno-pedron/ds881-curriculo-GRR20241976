@@ -55,10 +55,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Deploy para GitHub Pages
+      - name: Upload para GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
       - name: Publicar no GitHub Pages
+        if: github.ref == 'refs/heads/main'
         id: deployment
         uses: actions/deploy-pages@v4
