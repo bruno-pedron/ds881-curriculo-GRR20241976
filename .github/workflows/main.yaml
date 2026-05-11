@@ -13,23 +13,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verificação do index.html
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+      
+      - name: Instalar dependências
+        run: npm ci
+      
+      - name: ESLint - Validação de sintaxe JavaScript (Airbnb)
         run: |
-          if [ -f "index.html" ]; then
-            echo "✓ index.html encontrado"
-          else
-            echo "✗ index.html não encontrado"
-            exit 1
-          fi
-
-          if grep -q "<!DOCTYPE html>" index.html && \
-             grep -q "<html" index.html && \
-             grep -q "<title>" index.html; then
-            echo "✓ Estrutura básica do HTML validada"
-          else
-            echo "✗ index.html não possui a estrutura mínima esperada"
-            exit 1
-          fi
+          echo "🔍 Executando ESLint com padrão Airbnb..."
+          npm run lint -- --max-warnings=0
+      
+      - name: Prettier - Verificação de formatação
+        run: |
+          echo "🎨 Verificando formatação com Prettier..."
+          npx prettier --check "src/**/*.{js,css,html,json,md}" --log-level warn
+      
+      - name: Stylelint - Validação de CSS
+        run: |
+          echo "🎨 Validando CSS com Stylelint..."
+          npx stylelint "src/**/*.css" --max-warnings=0
+      
+      - name: HTML Validator - Validação de HTML
+        run: |
+          echo "✓ Validando HTML..."
+          npx html-validate index.html     
 
   build:
     name: Build
