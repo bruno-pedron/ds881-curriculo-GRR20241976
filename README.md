@@ -2,7 +2,75 @@
 
 Este repositório é um **template** para a atividade prática individual da disciplina DS881. O objetivo é aplicar conceitos de conteinerização, automação de pipeline CI/CD e governança de código em um cenário de projeto real (seu currículo ou portfólio profissional).
 
-## Instruções para Início
+## 🚀 Quick Start - Desenvolvimento Local
+
+### Pré-requisitos
+- Node.js 18+ instalado
+
+### Instalação e Execução
+
+```bash
+# 1. Instalar dependências
+npm install
+
+# 2. Iniciar servidor de desenvolvimento (Vite)
+npm run dev
+
+# 3. Abrir navegador em http://localhost:8080
+# Hot reload está habilitado - edições salvas refletem instantaneamente
+```
+
+### Build para Produção
+
+```bash
+npm run build    # Gera arquivos otimizados em /dist
+npm run preview  # Visualizar build localmente
+```
+
+## 📁 Estrutura do Projeto
+
+```
+.
+├── index.html              # HTML principal
+├── src/
+│   ├── js/                 # Módulos JavaScript (ES6)
+│   │   ├── main.js        # Entry point
+│   │   ├── theme.js       # Gerenciamento de tema
+│   │   ├── animations.js  # Animações com Intersection Observer
+│   │   ├── canvas.js      # Animação do hero
+│   │   ├── modal.js       # Gerenciamento de modais
+│   │   └── utils.js       # Funções utilitárias
+│   └── css/
+│       └── styles.css     # CSS customizado
+├── public/                # Arquivos estáticos (imagens, assets)
+├── dist/                  # Output do build (gerado)
+├── vite.config.js         # Configuração do Vite
+├── package.json           # Dependências e scripts
+└── .eslintrc             # ESLint config
+
+```
+
+## 🎯 Arquitetura Vite
+
+Este projeto utiliza **Vite** como build tool moderno com:
+
+- ✅ **Hot Module Replacement (HMR)** - Recarregamento automático ao salvar
+- ✅ **Módulos ES6** - Imports/exports nativos
+- ✅ **Desenvolvimento rápido** - Zero config, pronto para usar
+- ✅ **Build otimizado** - Minificação e code splitting automático
+- ✅ **Server pronto para Docker** - Configurado para port 8080
+
+Ver [`src/README.md`](src/README.md) para detalhes da arquitetura modular.
+
+## 🐳 Próximo Passo: Docker
+
+Após validar localmente com `npm run dev`, o projeto será containerizado com:
+
+- **Dockerfile**: Imagem base `node:22-alpine` com dependências
+- **docker-compose.yml**: Serviço Vite com volume mount em 8080
+- **Bind mount**: `./src` → `/app/src` para hot reload no container
+
+## Instruções de Configuração Inicial
 
 Para iniciar o seu trabalho, siga estes passos:
 

@@ -1,0 +1,32 @@
+// Modal management
+export function initModals() {
+  window.openModal = function(src) {
+    const modal = document.getElementById('image-modal');
+    const img = document.getElementById('modal-img');
+    img.src = src;
+    modal.classList.remove('hidden');
+    setTimeout(() => img.classList.remove('scale-95'), 10);
+    document.body.classList.add('modal-active');
+  };
+
+  window.closeModal = function() {
+    const modal = document.getElementById('image-modal');
+    const img = document.getElementById('modal-img');
+    img.classList.add('scale-95');
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      img.src = '';
+      document.body.classList.remove('modal-active');
+    }, 200);
+  };
+
+  // Close modal on backdrop click
+  const modal = document.getElementById('image-modal');
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        window.closeModal();
+      }
+    });
+  }
+}
