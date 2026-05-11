@@ -18,6 +18,7 @@ src/
 ## 🚀 Como Funciona
 
 ### main.js (Entry Point)
+
 - Importa todos os módulos JS
 - Importa arquivo de estilos
 - Inicializa aplicação quando o DOM está pronto
@@ -26,23 +27,33 @@ src/
 ### Módulos Disponíveis
 
 #### `theme.js`
+
 Gerencia o tema claro/escuro:
+
 - `initTheme()` - Inicializa o toggle de tema e persiste em localStorage
 
 #### `animations.js`
+
 Gerencia animações de scroll:
+
 - `initScrollReveal()` - Usa Intersection Observer para revelar elementos
 
 #### `canvas.js`
+
 Anima o fundo do hero:
+
 - `initCanvasAnimation()` - Cria partículas conectadas com linhas
 
 #### `modal.js`
+
 Gerencia modais de imagem:
+
 - `initModals()` - Expõe `window.openModal()` e `window.closeModal()`
 
 #### `utils.js`
+
 Funções auxiliares:
+
 - `smoothScroll()` - Suaviza scroll para links âncora
 - `log()` - Log customizado para debug
 
@@ -58,6 +69,7 @@ Funções auxiliares:
 ## 📦 Estrutura Para Docker
 
 Esta estrutura é pronta para containerização:
+
 - **node_modules/**: Instalado a partir do package.json
 - **dist/**: Compilação do Vite (gerado pelo `npm run build`)
 - **src/**: Código-fonte (montado como volume no container)
