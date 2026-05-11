@@ -1,13 +1,13 @@
 // Scroll reveal animations
-export function initScrollReveal() {
+export default function initScrollReveal() {
   const observerOptions = { threshold: 0.1 };
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('active');
       }
     });
   }, observerOptions);
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 }

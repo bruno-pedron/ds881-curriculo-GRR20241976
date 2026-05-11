@@ -1,6 +1,6 @@
 // Modal management
-export function initModals() {
-  window.openModal = function(src) {
+export default function initModals() {
+  window.openModal = (src) => {
     const modal = document.getElementById('image-modal');
     const img = document.getElementById('modal-img');
     img.src = src;
@@ -9,7 +9,7 @@ export function initModals() {
     document.body.classList.add('modal-active');
   };
 
-  window.closeModal = function() {
+  window.closeModal = () => {
     const modal = document.getElementById('image-modal');
     const img = document.getElementById('modal-img');
     img.classList.add('scale-95');

@@ -1,5 +1,5 @@
 // Canvas animation for hero background
-export function initCanvasAnimation() {
+export default function initCanvasAnimation() {
   const canvas = document.getElementById('hero-canvas');
   if (!canvas) return;
 
@@ -10,12 +10,12 @@ export function initCanvasAnimation() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     points = [];
-    for(let i = 0; i < 40; i++) {
+    for (let i = 0; i < 40; i += 1) {
       points.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5
+        vy: (Math.random() - 0.5) * 0.5,
       });
     }
   }
@@ -26,19 +26,24 @@ export function initCanvasAnimation() {
     ctx.strokeStyle = isDark ? 'rgba(251, 191, 36, 0.1)' : 'rgba(217, 119, 6, 0.05)';
     ctx.lineWidth = 1;
 
-    points.forEach((p, i) => {
-      p.x += p.vx;
-      p.y += p.vy;
+    points = points.map((point) => {
+      const nextPoint = { ...point };
+      nextPoint.x += nextPoint.vx;
+      nextPoint.y += nextPoint.vy;
 
-      if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
-      if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      if (nextPoint.x < 0 || nextPoint.x > canvas.width) nextPoint.vx *= -1;
+      if (nextPoint.y < 0 || nextPoint.y > canvas.height) nextPoint.vy *= -1;
 
-      points.slice(i + 1).forEach(p2 => {
-        const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-        if(dist < 200) {
+      return nextPoint;
+    });
+
+    points.forEach((point, index) => {
+      points.slice(index + 1).forEach((otherPoint) => {
+        const dist = Math.hypot(point.x - otherPoint.x, point.y - otherPoint.y);
+        if (dist < 200) {
           ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(p2.x, p2.y);
+          ctx.moveTo(point.x, point.y);
+          ctx.lineTo(otherPoint.x, otherPoint.y);
           ctx.stroke();
         }
       });
