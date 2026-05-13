@@ -49,10 +49,16 @@ jobs:
     needs: lint
     steps:
       - uses: actions/checkout@v4
-      - name: Validação de compilação
-        run: |
-          echo "✓ Aplicação validada com sucesso"
-          echo "✓ Estrutura do projeto está correta"
+      
+      - name: Construir aplicação com Docker
+        run: docker compose run --rm app npm run build
+
+      # usado para salvar os arquivos gerados no build e disponibilizar para o job de deploy
+      - name: Salvar artefato gerado
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: dist/
 
   deploy:
     name: Deploy
@@ -67,10 +73,20 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      
+      # usado para baixar os arquivos gerados no build
+      - name: Baixar artefatos da build
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-files
+          path: dist
+          
+      # teste de deploy no PR
       - name: Upload para GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: 'dist'
+          
       - name: Publicar no GitHub Pages
         if: github.ref == 'refs/heads/main'
         id: deployment
