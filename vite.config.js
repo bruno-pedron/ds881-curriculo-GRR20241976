@@ -19,12 +19,7 @@ export default defineConfig({
     port: 8080,
     strictPort: false,
     open: false,
-    cors: true,
-    hmr: {
-      host: 'localhost',
-      port: 8080,
-      protocol: 'ws'
-    }
+    cors: true
   },
   preview: {
     host: '0.0.0.0',
